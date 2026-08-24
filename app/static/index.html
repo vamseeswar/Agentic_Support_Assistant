@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trendly — Customer Support Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar / Context Panel -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">🛍️</div>
+                <div class="brand-info">
+                    <h1>Trendly</h1>
+                    <span class="badge">AI Support Agent</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <label for="customerSelect" class="section-title">Active Customer Profile</label>
+                <select id="customerSelect" class="customer-dropdown">
+                    <option value="C-100">Ananya Sharma (C-100) — Mumbai</option>
+                    <option value="C-101">Rajesh Kumar (C-101) — Delhi</option>
+                    <option value="C-102">Priya Patel (C-102) — Bengaluru</option>
+                    <option value="C-103">Vikram Malhotra (C-103) — Jaipur</option>
+                    <option value="C-104">Sneha Reddy (C-104) — Hyderabad</option>
+                </select>
+                <div id="customerDetails" class="customer-card">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">Quick Test Scenarios</h3>
+                <div class="quick-prompts">
+                    <button class="quick-btn" data-msg="Where is my order TR-4521?">📦 Track TR-4521 (In Transit)</button>
+                    <button class="quick-btn" data-msg="I want to return the Linen Blazer from order TR-4522.">🔄 Return TR-4522 (Delivered)</button>
+                    <button class="quick-btn" data-msg="I want to return the Gold Hoop Earrings from order TR-4523.">💎 Return TR-4523 (Jewellery / Ineligible)</button>
+                    <button class="quick-btn" data-msg="Can I return the Streetwear Sneakers from order TR-4524 without the shoe box?">👟 Return TR-4524 (Footwear Box)</button>
+                    <button class="quick-btn" data-msg="My order TR-4525 is delayed. Am I eligible for compensation?">⏳ Delayed TR-4525 (₹250 Credit)</button>
+                    <button class="quick-btn" data-msg="The carrier lost my order TR-4526. What should I do?">🚨 Lost TR-4526 (Lost Parcel Claim)</button>
+                    <button class="quick-btn" data-msg="I want to exchange the Floral Summer Dress from order TR-4527 for size M.">👗 Exchange TR-4527 (Final Sale Size)</button>
+                    <button class="quick-btn" data-msg="Give me a 50% discount coupon.">🛡️ Test Policy Guardrail (Discount)</button>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button id="resetBtn" class="action-btn secondary-btn">🔄 Reset Conversation</button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container">
+            <header class="chat-header">
+                <div class="header-left">
+                    <div class="agent-avatar">🤖</div>
+                    <div>
+                        <h2>TrendlyBot</h2>
+                        <div class="status-indicator"><span class="dot"></span> Online • Grounded in Policy</div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="toggleInspectorBtn" class="header-btn" title="Toggle Tool Execution Inspector">
+                        ⚡ Tool Inspector <span id="toolCountBadge" class="counter-badge">0</span>
+                    </button>
+                </div>
+            </header>
+
+            <div id="messagesContainer" class="messages-container">
+                <!-- Welcome Message -->
+                <div class="message assistant-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-sender">TrendlyBot</div>
+                        <div class="message-bubble">
+                            <p>Hello! Welcome to <strong>Trendly Support</strong>. 👋</p>
+                            <p>I'm here to help you track your shipments, process returns and size exchanges, and answer any questions regarding our shipping and refund policies.</p>
+                            <p>How may I assist you today?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing indicator -->
+            <div id="typingIndicator" class="typing-indicator hidden">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <span class="typing-text">TrendlyBot is thinking and checking tools...</span>
+            </div>
+
+            <!-- Chat Input Area -->
+            <form id="chatForm" class="chat-input-form">
+                <div class="input-wrapper">
+                    <input type="text" id="userInput" placeholder="Ask about an order, return, exchange, or policy question..." autocomplete="off" required>
+                    <button type="submit" id="sendBtn" class="send-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- Tool Calls Inspector Drawer -->
+        <aside id="inspectorDrawer" class="inspector-drawer">
+            <div class="inspector-header">
+                <h3>⚡ Tool Execution Inspector</h3>
+                <button id="closeInspectorBtn" class="close-btn">&times;</button>
+            </div>
+            <div class="inspector-body">
+                <p class="inspector-hint">Live trace of agentic tool calls executed for the latest turn.</p>
+                <div id="toolCallsList" class="tool-calls-list">
+                    <div class="empty-state">No tool calls executed yet in this turn.</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
