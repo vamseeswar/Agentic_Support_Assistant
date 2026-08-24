@@ -1,0 +1,17 @@
+.git
+.gitignore
+__pycache__
+.pytest_cache
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+venv
+env
+demo_videos/
+push_to_github.py
+record_demo.py
+render.yaml
+railway.json
+FDE Intern - Assignment.pdf
